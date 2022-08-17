@@ -12,6 +12,6 @@
     <string name="createNewProfile">Create new profile</string>
     <string name="back">Back</string>
     <string name="logout">Logout</string>
-    <string name="addGames">Add games</string>
+    <string name="addChallenges">Add challenges</string>
     <string name="addParticipants">Add participants</string>
 </resources>

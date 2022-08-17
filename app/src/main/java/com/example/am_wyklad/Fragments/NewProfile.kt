@@ -13,6 +13,8 @@ class NewProfile : Fragment() {
 
 
     lateinit var backButton: View
+    lateinit var addChallengesButton: View
+    lateinit var addParticipantsButton: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,22 @@ class NewProfile : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_new_profile, container, false)
         backButton = view.findViewById(R.id.backButton)
+        addChallengesButton = view.findViewById(R.id.addChallengesButton)
+        addParticipantsButton = view.findViewById(R.id.addParticipantsButton)
+
+        addParticipantsButton.setOnClickListener(){
+            val addParticipants = AddParticipants();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, addParticipants)
+            fragmentTransaction.commit()
+        }
+
+        addChallengesButton.setOnClickListener(){
+            val addChallanges = AddChallanges();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, addChallanges)
+            fragmentTransaction.commit()
+        }
 
         backButton.setOnClickListener(){
             val profilesMenu = ProfilesMenu();

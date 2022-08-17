@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setChooseFragment(){
-        val chooseFragment = ChooseFragment();
+        val chooseFragment = ChooseFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.mainActivity, chooseFragment)
         fragmentTransaction.commit()

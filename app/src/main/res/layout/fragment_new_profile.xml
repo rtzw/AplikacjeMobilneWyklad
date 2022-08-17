@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ChooseFragment"
+    tools:context=".Fragments.NewProfile"
     android:gravity="center">
 
     <LinearLayout
@@ -19,29 +19,45 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/joinByCodeButton"
+                android:id="@+id/addGamesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
-                android:text="@string/joinByCode" />
+                android:text="@string/addGames" />
 
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="260dp"
-                android:text="@string/login" />
+            <TextView
+                android:id="@+id/addGamesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
 
+                android:text="0 added"
+                android:textStyle="bold" />
             <Button
-                android:id="@+id/registerButton"
+                android:id="@+id/addParticipantsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
-                android:text="@string/register"/>
+                android:text="@string/addParticipants" />
+            <TextView
+                android:id="@+id/addParticipantsText"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0 added"
+                android:gravity="center"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="260dp"
+                android:text="@string/back" />
 
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

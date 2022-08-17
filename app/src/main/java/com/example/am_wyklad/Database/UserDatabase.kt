@@ -18,15 +18,16 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         private const val COLUMN_USER_PASSWORD = "password"
         private const val COLUMN_USER_NAME = "name"
 
-        private const val TABLE_PROFILE = "profile"
-        private const val COLUMN_PROFILE_USER_ID = "user_id"
-        private const val COLUMN_PROFILE_TOPIC = "topic"
-        private const val COLUMN_PROFILE_DESCRIPTION = "description"
+        private const val TABLE_CHALLANGE = "profile"
+        private const val COLUMN_CHALLANGE_USER_ID = "user_id"
+        private const val COLUMN_CHALLANGE_TOPIC = "topic"
+        private const val COLUMN_CHALLANGE_DESCRIPTION = "description"
 
-        private const val TABLE_CHALLANGE = "challange"
-        private const val COLUMN_CHALLANGE_ADMIN_ID = "admin_id"
-        private const val COLUMN_CHALLANGE_CODE = "code"
-        private const val COLUMN_CHALLANGE_CHALLANGES= "challenges"
+        private const val TABLE_PROFILE = "challange"
+        private const val COLUMN_PROFILE_ADMIN_ID = "admin_id"
+        private const val COLUMN_PROFILE_CODE = "code"
+        private const val COLUMN_PROFILE_CHALLANGES= "challenges"
+        private const val COLUMN_PROFILE_PLAYERS= "players"
 
 
     }
@@ -35,12 +36,12 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
             + COLUMN_USER_PASSWORD + " TEXT, " +  COLUMN_USER_NAME + " TEXT" + ")")
 
     private val CREATE_PROFILE_TABLE = ("CREATE TABLE  " + TABLE_PROFILE + "("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_PROFILE_USER_ID + " INTEGER,"
-            + COLUMN_PROFILE_TOPIC + " TEXT, " +  COLUMN_PROFILE_DESCRIPTION + " TEXT" + ")")
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_PROFILE_ADMIN_ID + " INTEGER,"
+            + COLUMN_PROFILE_CODE + " TEXT, " +  COLUMN_PROFILE_CHALLANGES + " TEXT" + COLUMN_PROFILE_PLAYERS + " TEXT" + ")")
 
     private val CREATE_CHALLANGE_TABLE = ("CREATE TABLE  " + TABLE_CHALLANGE + "("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CHALLANGE_ADMIN_ID + " INTEGER,"
-            + COLUMN_CHALLANGE_CODE + " TEXT, " +  COLUMN_CHALLANGE_CHALLANGES + " TEXT" + ")")
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CHALLANGE_USER_ID + " INTEGER,"
+            + COLUMN_CHALLANGE_TOPIC + " TEXT, " +  COLUMN_CHALLANGE_DESCRIPTION + " TEXT" + ")")
 
     private val DROP_USER_TABLE = "DROP TABLE IF EXISTS $TABLE_USER"
     private val DROP_PROFILE_TABLE = "DROP TABLE IF EXISTS $TABLE_PROFILE"

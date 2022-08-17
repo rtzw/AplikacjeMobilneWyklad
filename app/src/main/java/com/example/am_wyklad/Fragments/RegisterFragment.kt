@@ -1,12 +1,14 @@
 package com.example.am_wyklad.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import com.example.am_wyklad.Database.UserDatabase
 import com.example.am_wyklad.Database.User
 import com.example.am_wyklad.R
@@ -14,6 +16,7 @@ import com.example.am_wyklad.R
 
 class RegisterFragment : Fragment() {
     lateinit var registerButton: View
+    lateinit var backButton: View
     lateinit var loginInput: EditText
     lateinit var passwordInput: EditText
     lateinit var nameInput: EditText
@@ -31,6 +34,7 @@ class RegisterFragment : Fragment() {
         registerButton = view.findViewById(R.id.registerButton)
         loginInput = view.findViewById(R.id.loginInput)
         nameInput = view.findViewById(R.id.nameInput)
+        backButton = view.findViewById(R.id.backButton)
         passwordInput = view.findViewById(R.id.passwordInput)
         val userDatabase: UserDatabase = UserDatabase(requireActivity())
 
@@ -39,7 +43,18 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), "Podane konto już istnieje!", Toast.LENGTH_LONG).show()
             }else{
                 addNewUser()
+                val loginFragment = LoginFragment();
+                val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+                fragmentTransaction.replace(R.id.mainActivity, loginFragment)
+                fragmentTransaction.commit()
             }
+        }
+
+        backButton.setOnClickListener(){
+            val chooseFragment = ChooseFragment();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, chooseFragment)
+            fragmentTransaction.commit()
         }
         return view
     }

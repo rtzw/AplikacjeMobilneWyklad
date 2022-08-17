@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.am_wyklad.R
 
 
-class JoinByCodeFragment : Fragment()  {
+class NewProfile : Fragment() {
+
 
     lateinit var backButton: View
 
@@ -21,18 +22,15 @@ class JoinByCodeFragment : Fragment()  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_join_by_code, container, false)
+        val view = inflater.inflate(R.layout.fragment_new_profile, container, false)
         backButton = view.findViewById(R.id.backButton)
 
         backButton.setOnClickListener(){
-            val chooseFragment = ChooseFragment();
-            val fragmentTransaction: FragmentTransaction =
-                fragmentManager!!.beginTransaction()
-            fragmentTransaction.replace(R.id.mainActivity, chooseFragment)
+            val profilesMenu = ProfilesMenu();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, profilesMenu)
             fragmentTransaction.commit()
         }
-
         return view
     }
-
 }

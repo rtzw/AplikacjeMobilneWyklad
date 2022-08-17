@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ChooseFragment"
+    tools:context=".Fragments.ProfilesMenu"
     android:gravity="center">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,29 +20,29 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/joinByCodeButton"
+                android:id="@+id/yourProfiles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
-                android:text="@string/joinByCode" />
+                android:text="@string/yourProfiles" />
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/createNewProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
-                android:text="@string/login" />
-
+                android:text="@string/createNewProfile" />
             <Button
-                android:id="@+id/registerButton"
+                android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
-                android:text="@string/register"/>
+                android:text="@string/logout" />
 
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

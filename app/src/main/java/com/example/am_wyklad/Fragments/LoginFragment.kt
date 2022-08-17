@@ -18,6 +18,7 @@ class LoginFragment : Fragment() {
     lateinit var loginButton: View
     lateinit var loginInput: EditText
     lateinit var passwordInput: EditText
+    lateinit var backButton: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +32,28 @@ class LoginFragment : Fragment() {
         loginButton = view.findViewById(R.id.loginButton)
         loginInput = view.findViewById(R.id.loginInput)
         passwordInput = view.findViewById(R.id.passwordInput)
+        backButton = view.findViewById(R.id.backButton)
         val userDatabase: UserDatabase = UserDatabase(requireActivity())
 
         loginButton.setOnClickListener(){
             if(userDatabase.isRegistered(loginInput.text.toString(), passwordInput.text.toString())) {
 
-                val blankFragment = StartFragment();
+                val profilesMenu = ProfilesMenu();
                     val fragmentTransaction: FragmentTransaction =
                         fragmentManager!!.beginTransaction()
-                    fragmentTransaction.replace(R.id.mainActivity, blankFragment)
+                    fragmentTransaction.replace(R.id.mainActivity, profilesMenu)
                     fragmentTransaction.commit()
                 }
             else{
                 Toast.makeText(requireContext(), "Konto nie istnieje!", Toast.LENGTH_LONG).show()
             }
+        }
+
+        backButton.setOnClickListener(){
+            val chooseFragment = ChooseFragment();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, chooseFragment)
+            fragmentTransaction.commit()
         }
         return view
     }

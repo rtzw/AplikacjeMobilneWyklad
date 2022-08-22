@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.am_wyklad.Database.UserDatabase
 import com.example.am_wyklad.R
+import com.example.am_wyklad.StaticVariables
 
 class LoginFragment : Fragment() {
     lateinit var loginButton: View
@@ -37,7 +38,7 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener(){
             if(userDatabase.isRegistered(loginInput.text.toString(), passwordInput.text.toString())) {
-
+                StaticVariables.loggedUser = userDatabase.getUserByLogin(loginInput.text.toString())[0]
                 val profilesMenu = ProfilesMenu();
                     val fragmentTransaction: FragmentTransaction =
                         fragmentManager!!.beginTransaction()

@@ -8,6 +8,8 @@
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/activity_start.xml" value="0.358695652173913" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_add_challanges.xml" value="0.25" />
+        <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_add_custom_challange.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_add_participant.xml" value="0.18072916666666666" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_add_participants.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_blank.xml" value="0.33" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_choose.xml" value="0.2598958333333333" />
@@ -17,6 +19,7 @@
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_profiles_menu.xml" value="0.25" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_register.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/fragment_start.xml" value="0.33" />
+        <entry key="..\:/Users/mszeflinski/AndroidStudioProjects/AM_wyklad/app/src/main/res/layout/participants_layout.xml" value="0.3614583333333333" />
       </map>
     </option>
   </component>

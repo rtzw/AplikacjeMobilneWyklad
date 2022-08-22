@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.am_wyklad.Fragments.ChooseFragment
 import com.example.am_wyklad.Fragments.LoginFragment
 import com.example.am_wyklad.R
+import com.example.am_wyklad.StaticVariables
 
 class MainActivity : AppCompatActivity() {
 //    lateinit var binding: ActivityMainBinding
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 //        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         setChooseFragment()
-
+        StaticVariables()
 
 
 //        val loginFragment = LoginFragment()

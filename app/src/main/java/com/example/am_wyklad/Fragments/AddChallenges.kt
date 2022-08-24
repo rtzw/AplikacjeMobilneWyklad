@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.am_wyklad.R
 
 
-class AddChallanges : Fragment() {
+class AddChallenges : Fragment() {
     lateinit var backButton: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class AddChallanges : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_challanges, container, false)
+        val view = inflater.inflate(R.layout.fragment_add_challenges, container, false)
         backButton = view.findViewById(R.id.backButton)
 
         backButton.setOnClickListener(){

@@ -43,9 +43,9 @@ class NewProfile : Fragment() {
         }
 
         addChallengesButton.setOnClickListener(){
-            val addChallanges = AddChallanges();
+            val addChallenges = AddChallenges();
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-            fragmentTransaction.replace(R.id.mainActivity, addChallanges)
+            fragmentTransaction.replace(R.id.mainActivity, addChallenges)
             fragmentTransaction.commit()
         }
 

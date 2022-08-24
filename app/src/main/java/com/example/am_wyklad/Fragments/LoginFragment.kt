@@ -45,8 +45,12 @@ class LoginFragment : Fragment() {
                     fragmentTransaction.replace(R.id.mainActivity, profilesMenu)
                     fragmentTransaction.commit()
                 }
+            else if(userDatabase.isRegistered(loginInput.text.toString())){
+                Toast.makeText(requireContext(), "Bad password!", Toast.LENGTH_SHORT).show()
+            }
             else{
-                Toast.makeText(requireContext(), "Konto nie istnieje!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "User does not exist!", Toast.LENGTH_SHORT).show()
+
             }
         }
 

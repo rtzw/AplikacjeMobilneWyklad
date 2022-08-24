@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_wyklad.R
-import com.example.am_wyklad.RecyclerAdapter
+import com.example.am_wyklad.Adapters.ParticipantsRecyclerAdapter
 import com.example.am_wyklad.StaticVariables
 
 class AddParticipants : Fragment() {
@@ -23,7 +23,7 @@ class AddParticipants : Fragment() {
     lateinit var removeButton: Button
     lateinit var recycleViewParticipants: RecyclerView
 
-    private lateinit var recyclerAdapter: RecyclerAdapter
+    private lateinit var participantsRecyclerAdapter: ParticipantsRecyclerAdapter
 
 
     val dataSet: Array<String> = arrayOf()
@@ -46,10 +46,10 @@ class AddParticipants : Fragment() {
 
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycleViewParticipants)
-        recyclerAdapter = RecyclerAdapter(StaticVariables.addedParticipants)
+        participantsRecyclerAdapter = ParticipantsRecyclerAdapter(StaticVariables.addedParticipants)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = recyclerAdapter
+        recyclerView.adapter = participantsRecyclerAdapter
 
 
         addParticipant.setOnClickListener(){
@@ -63,9 +63,9 @@ class AddParticipants : Fragment() {
             builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
                 var m_Text = input.text.toString()
                 StaticVariables.addedParticipants.add(m_Text)
-                recyclerAdapter = RecyclerAdapter(StaticVariables.addedParticipants)
-                recyclerView.adapter = recyclerAdapter
-                recyclerAdapter.notifyDataSetChanged()
+                participantsRecyclerAdapter = ParticipantsRecyclerAdapter(StaticVariables.addedParticipants)
+                recyclerView.adapter = participantsRecyclerAdapter
+                participantsRecyclerAdapter.notifyDataSetChanged()
 
             })
             builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })

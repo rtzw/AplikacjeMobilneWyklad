@@ -1,18 +1,17 @@
-package com.example.am_wyklad
+package com.example.am_wyklad.Adapters
 
-import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
+import com.example.am_wyklad.R
 
-class RecyclerAdapter(private val dataSet: MutableList<String>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class ParticipantsRecyclerAdapter(private val dataSet: MutableList<String>) : RecyclerView.Adapter<ParticipantsRecyclerAdapter.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.participants_layout, parent, false)
         return ViewHolder(v)
     }

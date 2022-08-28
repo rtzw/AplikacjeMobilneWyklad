@@ -17,4 +17,5 @@
     <string name="addParticipant">Add participant</string>
     <string name="addCustomChallenge">Add custom</string>
     <string name="remove">remove</string>
+    <string name="select">select</string>
 </resources>

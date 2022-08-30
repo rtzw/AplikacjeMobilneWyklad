@@ -28,7 +28,7 @@ class StartActivity : AppCompatActivity() {
 
         val thread = Thread(){
             run{
-                Thread.sleep(1000)
+                Thread.sleep(6000)
             }
             runOnUiThread(){
                 val intent = Intent(this, MainActivity::class.java)

@@ -3,6 +3,7 @@ package com.example.am_wyklad.Fragments
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -11,11 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import com.example.am_wyklad.R
 
 
 class StartFragment : Fragment() {
-    lateinit var text: View;
+    lateinit var image: ImageView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +29,7 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
-        text = view.findViewById(R.id.text2);
+        image = view.findViewById(R.id.image)
         Handler().postDelayed({
             startAnimation()
         },50)
@@ -35,33 +37,34 @@ class StartFragment : Fragment() {
 
     }
     fun startAnimation() {
-        var sunMaxY : Float = text.getTop().toFloat()
-        var sunMinY : Float = text.getHeight().toFloat()
-        var sunWidth : Float = text.width.toFloat()
-        var sunMaxX : Float = text.width.toFloat() - sunWidth
+        var MaxY : Float = image.getTop().toFloat()
+        var MinY : Float = image.getHeight().toFloat()
+        var width : Float = image.width.toFloat()
+        var MaxX : Float = image.width.toFloat() - width
 
-        val cloud1Animator: ObjectAnimator = ObjectAnimator.ofFloat(text, "x", -sunWidth, sunMaxX+sunWidth).setDuration(4000)
-        val cloud2Animator: ObjectAnimator = ObjectAnimator.ofFloat(text, "x", sunMaxX+sunWidth, -sunWidth).setDuration(6000)
+        val animation1: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", - width, MaxX + width).setDuration(4000)
+        val animation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", MaxX + width, -width).setDuration(6000)
 
 
-        val sunriseHeightAnimator: ObjectAnimator = ObjectAnimator.ofFloat(text, "y", sunMinY, sunMaxY).setDuration(3000)
-        sunriseHeightAnimator.interpolator = DecelerateInterpolator()
+        val heightAnimation: ObjectAnimator = ObjectAnimator.ofFloat(image, "y", MinY, MaxY).setDuration(3000)
+        heightAnimation.interpolator = DecelerateInterpolator()
 
-        val sunsetHeightAnimator: ObjectAnimator = ObjectAnimator.ofFloat(text, "y", sunMaxY, sunMinY).setDuration(3000)
-        sunsetHeightAnimator.interpolator = AccelerateInterpolator()
+        val heightAnimation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "y", MinY, MaxY).setDuration(3000)
+        heightAnimation2.interpolator = AccelerateInterpolator()
 
-        val sunriseWidthAnimator: ObjectAnimator = ObjectAnimator.ofFloat(text, "x", -sunWidth, sunMaxX/2).setDuration(3000)
-        sunriseWidthAnimator.interpolator = AccelerateInterpolator()
-        val sunsetWidthAnimator: ObjectAnimator = ObjectAnimator.ofFloat(text, "x", sunMaxX/2, sunMaxX+sunWidth).setDuration(3000)
-        sunsetWidthAnimator.interpolator = DecelerateInterpolator()
+        val widthAnimation: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", -width, MaxX / 2).setDuration(3000)
+        widthAnimation.interpolator = AccelerateInterpolator()
+
+        val widthAnimation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", MaxX / 2, MaxX + width).setDuration(3000)
+        widthAnimation2.interpolator = DecelerateInterpolator()
 
 
         var animation: AnimatorSet = AnimatorSet()
 
-        animation.play(sunriseHeightAnimator).with(sunriseWidthAnimator)
-            .before(sunsetHeightAnimator).before(sunsetWidthAnimator)
+        animation.play(heightAnimation).with(widthAnimation)
+            .before(heightAnimation2).before(widthAnimation2)
 
-        animation.play(cloud1Animator).with(cloud2Animator)
+        animation.play(animation1).with(animation2)
 
         animation.start()
     }

@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Activites.StartActivity"
     android:id="@+id/startActivity"
-    android:background="@color/am">
+    android:background="@color/white">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,8 +21,7 @@ import com.example.am_wyklad.StaticVariables
 class AddParticipants : Fragment() {
     lateinit var backButton: View
     lateinit var addParticipant: View
-    lateinit var removeButton: Button
-    lateinit var recycleViewParticipants: RecyclerView
+
 
     private lateinit var participantsRecyclerAdapter: ParticipantsRecyclerAdapter
 
@@ -62,11 +62,16 @@ class AddParticipants : Fragment() {
 
             builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
                 var m_Text = input.text.toString()
-                StaticVariables.addedParticipants.add(m_Text)
-                participantsRecyclerAdapter = ParticipantsRecyclerAdapter(StaticVariables.addedParticipants)
-                recyclerView.adapter = participantsRecyclerAdapter
-                participantsRecyclerAdapter.notifyDataSetChanged()
-
+                if(m_Text.isNotEmpty() || m_Text.isNotBlank()) {
+                    StaticVariables.addedParticipants.add(m_Text)
+                    participantsRecyclerAdapter =
+                        ParticipantsRecyclerAdapter(StaticVariables.addedParticipants)
+                    recyclerView.adapter = participantsRecyclerAdapter
+                    participantsRecyclerAdapter.notifyDataSetChanged()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Empty name, try again!", Toast.LENGTH_SHORT).show()
+                }
             })
             builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 

@@ -1,5 +1,6 @@
 package com.example.am_wyklad.Database
 
+import android.content.ClipDescription
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -10,7 +11,7 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     companion object{
         private const val DATABASE_NAME = "am.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 6
 
         private const val TABLE_USER = "user"
         private const val COLUMN_ID = "id"
@@ -18,15 +19,15 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         private const val COLUMN_USER_PASSWORD = "password"
         private const val COLUMN_USER_NAME = "name"
 
-        private const val TABLE_CHALLANGE = "profile"
-        private const val COLUMN_CHALLANGE_USER_ID = "user_id"
-        private const val COLUMN_CHALLANGE_TOPIC = "topic"
-        private const val COLUMN_CHALLANGE_DESCRIPTION = "description"
+        private const val TABLE_CHALLENGE = "challenge"
+        private const val COLUMN_CHALLENGE_USER_ID = "user_id"
+        private const val COLUMN_CHALLENGE_DESCRIPTION = "description"
 
-        private const val TABLE_PROFILE = "challange"
+        private const val TABLE_PROFILE = "profile"
         private const val COLUMN_PROFILE_ADMIN_ID = "admin_id"
+        private const val COLUMN_PROFILE_NAME = "name"
         private const val COLUMN_PROFILE_CODE = "code"
-        private const val COLUMN_PROFILE_CHALLANGES= "challenges"
+        private const val COLUMN_PROFILE_CHALLENGES= "challenges"
         private const val COLUMN_PROFILE_PLAYERS= "players"
 
 
@@ -37,26 +38,26 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     private val CREATE_PROFILE_TABLE = ("CREATE TABLE  " + TABLE_PROFILE + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_PROFILE_ADMIN_ID + " INTEGER,"
-            + COLUMN_PROFILE_CODE + " TEXT, " +  COLUMN_PROFILE_CHALLANGES + " TEXT" + COLUMN_PROFILE_PLAYERS + " TEXT" + ")")
+            + COLUMN_PROFILE_NAME + " TEXT, " + COLUMN_PROFILE_CODE + " TEXT, " +  COLUMN_PROFILE_CHALLENGES + " TEXT, " + COLUMN_PROFILE_PLAYERS + " TEXT" + ")")
 
-    private val CREATE_CHALLANGE_TABLE = ("CREATE TABLE  " + TABLE_CHALLANGE + "("
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CHALLANGE_USER_ID + " INTEGER,"
-            + COLUMN_CHALLANGE_TOPIC + " TEXT, " +  COLUMN_CHALLANGE_DESCRIPTION + " TEXT" + ")")
+    private val CREATE_CHALLENGE_TABLE = ("CREATE TABLE  " + TABLE_CHALLENGE + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CHALLENGE_USER_ID + " INTEGER,"
+            +  COLUMN_CHALLENGE_DESCRIPTION + " TEXT" + ")")
 
     private val DROP_USER_TABLE = "DROP TABLE IF EXISTS $TABLE_USER"
     private val DROP_PROFILE_TABLE = "DROP TABLE IF EXISTS $TABLE_PROFILE"
-    private val DROP_CHALLANGE_TABLE = "DROP TABLE IF EXISTS $TABLE_CHALLANGE"
+    private val DROP_CHALLENGE_TABLE = "DROP TABLE IF EXISTS $TABLE_CHALLENGE"
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_PROFILE_TABLE)
-        db.execSQL(CREATE_CHALLANGE_TABLE)
+        db.execSQL(CREATE_CHALLENGE_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, old: Int, new: Int) {
         db.execSQL(DROP_USER_TABLE)
         db.execSQL(DROP_PROFILE_TABLE)
-        db.execSQL(DROP_CHALLANGE_TABLE)
+        db.execSQL(DROP_CHALLENGE_TABLE)
         onCreate(db)
     }
 
@@ -130,6 +131,100 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         val query = db.rawQuery ("select * from user u where u.login = '$login' ", null);
         return query.moveToFirst()
 
+    }
+
+    fun getChallenges(userId: Int): MutableList<String>{
+        val challenge: MutableList<String> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from challenge c where c.user_id = '$userId' or c.user_id = -1 ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                challenge.add(query.getString(2))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return challenge
+        }
+    }
+
+    fun addChallenge(userId: Int, description: String) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COLUMN_CHALLENGE_USER_ID, userId)
+        values.put(COLUMN_CHALLENGE_DESCRIPTION, description)
+        // Inserting Row
+        db.insert(TABLE_CHALLENGE, null, values)
+        db.close()
+    }
+
+    fun addProfile(adminId: Int, name: String, code: String, challenges: String, players: String) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COLUMN_PROFILE_ADMIN_ID, adminId)
+        values.put(COLUMN_PROFILE_NAME, name)
+        values.put(COLUMN_PROFILE_CODE, code)
+        values.put(COLUMN_PROFILE_CHALLENGES, challenges)
+        values.put(COLUMN_PROFILE_PLAYERS, players)
+        // Inserting Row
+        db.insert(TABLE_PROFILE, null, values)
+        db.close()
+    }
+
+    fun getChallengeByDescription(userId: Int, description: String): MutableList<Int>{
+        val challenge: MutableList<Int> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from challenge c where ( c.user_id = '$userId' or c.user_id = -1 ) and c.description = '$description' ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                challenge.add(query.getInt(0))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return challenge
+        }
+    }
+
+    fun getProfiles(userId: Int): MutableList<String>{
+        val challenge: MutableList<String> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from profile p where p.admin_id = '$userId' ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                challenge.add(query.getString(2))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return challenge
+        }
+    }
+    fun getProfilesByName(userId: Int, name: String): MutableList<String>{
+        val challenge: MutableList<String> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from profile p where p.admin_id = '$userId' and p.name = '$name' ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                challenge.add(query.getString(2))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return challenge
+        }
     }
 
 }

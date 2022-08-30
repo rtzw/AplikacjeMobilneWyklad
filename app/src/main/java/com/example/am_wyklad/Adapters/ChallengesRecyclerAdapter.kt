@@ -8,6 +8,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_wyklad.R
+import com.example.am_wyklad.StaticVariables
 
 class ChallengesRecyclerAdapter(private val dataSet: MutableList<String>) : RecyclerView.Adapter<ChallengesRecyclerAdapter.ViewHolder>() {
 
@@ -32,9 +33,18 @@ class ChallengesRecyclerAdapter(private val dataSet: MutableList<String>) : Recy
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.challenge.text = dataSet[position]
+        if(StaticVariables.addedChallenges.contains(dataSet[position])){
+            holder.select!!.isChecked=true
+        }
+
 
         holder.select.setOnClickListener(){
-
+            if(holder.select.isChecked){
+                StaticVariables.addedChallenges.add(holder.challenge.text.toString())
+            }
+            else{
+                StaticVariables.addedChallenges.remove(holder.challenge.text.toString())
+            }
         }
     }
 

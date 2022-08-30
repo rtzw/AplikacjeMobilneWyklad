@@ -19,6 +19,12 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="260dp"
+                android:text="@string/create" />
+            <Button
                 android:id="@+id/addChallengesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,6 +53,7 @@
                 android:text="0 added"
                 android:gravity="center"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/backButton"
                 android:layout_width="wrap_content"

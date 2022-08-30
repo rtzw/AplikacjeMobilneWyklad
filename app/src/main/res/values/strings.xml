@@ -18,4 +18,6 @@
     <string name="addCustomChallenge">Add custom</string>
     <string name="remove">remove</string>
     <string name="select">select</string>
+    <string name="create">CREATE</string>
+    <string name="addNewProfile">Add new profile</string>
 </resources>

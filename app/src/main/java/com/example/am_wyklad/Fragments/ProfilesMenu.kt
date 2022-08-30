@@ -34,10 +34,10 @@ class ProfilesMenu : Fragment() {
         logoutButton = view.findViewById(R.id.logoutButton)
 
         yourProfiles.setOnClickListener(){
-//            val loginFragment = LoginFragment();
-//            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-//            fragmentTransaction.replace(R.id.mainActivity, loginFragment)
-//            fragmentTransaction.commit()
+            val yourProfiles = YourProfiles();
+            val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, yourProfiles)
+            fragmentTransaction.commit()
         }
 
         createNewProfile.setOnClickListener(){

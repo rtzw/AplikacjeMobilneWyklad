@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.am_wyklad.Database.Profile
 import com.example.am_wyklad.Database.UserDatabase
 import com.example.am_wyklad.R
 import com.example.am_wyklad.StaticVariables
+import kotlin.random.Random
 
 class ProfileFragment : Fragment() {
 
@@ -51,15 +53,21 @@ class ProfileFragment : Fragment() {
                     .get(0)
         }
         val participants = profile.players.split(";")
-        val challenges = profile.challenges.split(";")
-        val result = profile.challenges.split(";")
-        val participantsMutableList = participants.toMutableList()
-        val challengesMutableList = challenges.toMutableList()
-        val resultMutableList = result.toMutableList()
+        var challenges = profile.challenges.split(";")
+        val result = profile.draw.split(";")
+        var participantsMutableList = participants.toMutableList()
+        participantsMutableList = participantsMutableList.subList(0, participantsMutableList.size - 1).toMutableList()
+        var challengesMutableList = challenges.toMutableList()
+        challengesMutableList = challengesMutableList.subList(0, challengesMutableList.size - 1).toMutableList()
+        var resultMutableList = result.toMutableList()
+        if(resultMutableList.size > 1)
+            resultMutableList = resultMutableList.subList(0, resultMutableList.size - 1).toMutableList()
+
         code.text = "Code: " + profile.code
         // participants
         val recyclerViewParticipants: RecyclerView = view.findViewById(R.id.participants)
-        profileParticipantsRecyclerAdapter = ProfileParticipantsRecyclerAdapter(participantsMutableList
+        profileParticipantsRecyclerAdapter = ProfileParticipantsRecyclerAdapter(
+            participantsMutableList
             )
         val layoutManagerParticipants = LinearLayoutManager(activity)
         recyclerViewParticipants.layoutManager = layoutManagerParticipants
@@ -68,7 +76,8 @@ class ProfileFragment : Fragment() {
 
         // challengess
         val recyclerViewChallenges: RecyclerView = view.findViewById(R.id.challenges)
-        profileChallengesRecycleAdapter = ProfileChallengesRecycleAdapter(challengesMutableList
+        profileChallengesRecycleAdapter = ProfileChallengesRecycleAdapter(
+            challengesMutableList
         )
         val layoutManagerChallenges = LinearLayoutManager(activity)
         recyclerViewChallenges.layoutManager = layoutManagerChallenges
@@ -85,24 +94,50 @@ class ProfileFragment : Fragment() {
         recyclerViewResult.adapter = profileResultRecyclerAdapter
 
         drawButton.setOnClickListener(){
-            println("Witam")
-            if(participantsMutableList.size <= challengesMutableList.size){
-                challenges.shuffled()
-                for(i in 0..(participants.size - 1)){
-                    resultMutableList.add(challenges.get(i) + " for " + participantsMutableList.get(i))
+            if(StaticVariables.loggedUser.id == -1)
+                Toast.makeText(requireContext(), "You cannot draw, ask the organizer!", Toast.LENGTH_LONG).show()
+            else {
+                resultMutableList = mutableListOf()
+                if (participantsMutableList.size <= challengesMutableList.size) {
+                    challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
+                    for (i in 0..(participantsMutableList.size - 1)) {
+                        resultMutableList.add(
+                            challengesMutableList.get(i) + " for " + participantsMutableList.get(
+                                i
+                            )
+                        )
+                    }
+                } else {
+                    challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
+                    var j = 0
+                    for (i in 0..(participantsMutableList.size - 1)) {
+                        if ((challengesMutableList.size + 1) % (i + 1) == 0) j = 0
+                        resultMutableList.add(
+                            challengesMutableList.get(j) + " --> " + participantsMutableList.get(
+                                i
+                            )
+                        )
+                        j++
+                    }
                 }
-            }
-            else{
-                challenges.shuffled()
-                var j = 0
-                for(i in 0..(participants.size - 1)){
-                    if((challenges.size + 1) % (i + 1) == 0) j = 0
-                    resultMutableList.add(challenges.get(j) + " --> " + participantsMutableList.get(i))
-                    j++
+                println(resultMutableList)
+                var temp: String = ""
+                for (item in resultMutableList) {
+                    temp += "$item;"
                 }
+                if (temp.last().equals(";")) {
+                    temp.dropLast(1)
+                }
+                userDatabase.updateProfile(
+                    Profile(
+                        -1, profile.adminId, profile.name,
+                        profile.code, profile.challenges, profile.players, temp
+                    )
+                );
+                profileResultRecyclerAdapter = ProfileResultRecyclerAdapter(resultMutableList)
+                recyclerViewResult.adapter = profileResultRecyclerAdapter
+                profileResultRecyclerAdapter.notifyDataSetChanged()
             }
-            profileResultRecyclerAdapter = ProfileResultRecyclerAdapter(resultMutableList)
-            profileResultRecyclerAdapter.notifyDataSetChanged()
         }
 
         backButton.setOnClickListener(){

@@ -170,7 +170,7 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         db.close()
     }
 
-    fun addProfile(adminId: Int, name: String, code: String, challenges: String, players: String) {
+    fun addProfile(adminId: Int, name: String, code: String, challenges: String, players: String, draw: String) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COLUMN_PROFILE_ADMIN_ID, adminId)
@@ -178,10 +178,15 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         values.put(COLUMN_PROFILE_CODE, code)
         values.put(COLUMN_PROFILE_CHALLENGES, challenges)
         values.put(COLUMN_PROFILE_PLAYERS, players)
-        values.put(COLUMN_PROFILE_DRAW, "Waiting for draw!")
+        values.put(COLUMN_PROFILE_DRAW, draw)
         // Inserting Row
         db.insert(TABLE_PROFILE, null, values)
         db.close()
+    }
+
+    fun updateProfile(profile: Profile) {
+        deleteProfile(profile.name, profile.adminId)
+        addProfile(profile.adminId, profile.name, profile.code, profile.challenges, profile.players, profile.draw)
     }
 
     fun getChallengeByDescription(userId: Int, description: String): MutableList<Int>{
@@ -280,3 +285,4 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         return query.moveToFirst()
     }
 }
+

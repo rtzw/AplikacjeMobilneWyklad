@@ -11,7 +11,7 @@
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/participation"
+        android:text="@string/Challenges"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold"/>
@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Challenges"
+        android:text="@string/participation"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"/>

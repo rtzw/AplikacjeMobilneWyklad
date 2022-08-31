@@ -106,10 +106,7 @@ class NewProfile : Fragment() {
                             var challenges: String = ""
                             var players: String = ""
                             for (item in StaticVariables.addedChallenges) {
-                                challenges += userDatabase.getChallengeByDescription(
-                                    StaticVariables.loggedUser.id,
-                                    item
-                                ).get(0).toString() + ";"
+                                challenges += "$item;"
                             }
                             for (item in StaticVariables.addedParticipants) {
                                 players += "$item;"
@@ -125,7 +122,8 @@ class NewProfile : Fragment() {
                                 m_Text,
                                 pin.toString(),
                                 challenges,
-                                players
+                                players,
+                                "Waiting for draw!"
                             )
                             StaticVariables.addedChallenges = mutableListOf()
                             StaticVariables.addedParticipants = mutableListOf()

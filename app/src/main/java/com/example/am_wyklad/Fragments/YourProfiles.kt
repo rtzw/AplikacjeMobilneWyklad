@@ -62,7 +62,6 @@ class YourProfiles : Fragment(), YourProfilesRecyclerAdapter.ClickListner {
     }
 
     override fun onItemClick(string: String) {
-        println("co ty?")
         if(StaticVariables.deleteProfile.equals("null")) {
             val profileFragment = ProfileFragment()
             val fragmentTransaction: FragmentTransaction =

@@ -30,6 +30,7 @@ class ProfileParticipantsRecyclerAdapter(private val dataSet: MutableList<String
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.profileText.text = dataSet[position]
 
+
     }
 
 }

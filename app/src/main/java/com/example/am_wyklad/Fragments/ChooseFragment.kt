@@ -30,8 +30,13 @@ class ChooseFragment : Fragment() {
         val userDatabase: UserDatabase = UserDatabase(requireActivity())
 
         if(userDatabase.getChallenges(-1).size == 0){
-            userDatabase.addChallenge(-1,"Skacz")
-            userDatabase.addChallenge(-1,"Tańcz")
+            userDatabase.addChallenge(-1,"Grab a nearby dancer and challenge them to a dance-off.")
+            userDatabase.addChallenge(-1,"Get a selfie with a blonde, brunette and a red head.")
+            userDatabase.addChallenge(-1,"Challenge a stranger to a press up competition and win.")
+            userDatabase.addChallenge(-1,"Peel a potato with your bare teeth.")
+            userDatabase.addChallenge(-1,"Approach a random stranger and explain that you are going to perform a magic trick. The challenge is to keep their attention for as long as possible.        ")
+            userDatabase.addChallenge(-1,"Choose a random stranger and copy his movements for 10 minutes.")
+            userDatabase.addChallenge(-1,"Kiss a random girl.")
         }
 
         loginButton.setOnClickListener(){

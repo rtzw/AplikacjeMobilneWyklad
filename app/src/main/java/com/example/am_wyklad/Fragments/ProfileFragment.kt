@@ -71,12 +71,21 @@ class ProfileFragment : Fragment() {
         var resultMutableList = result.toMutableList()
         if(resultMutableList.size > 1)
             resultMutableList = resultMutableList.subList(0, resultMutableList.size - 1).toMutableList()
-
+        var participantsTempList: MutableList<String> = mutableListOf()
+        for(item in participantsMutableList){
+            participantsTempList.add(item)
+            participantsTempList.add("")
+        }
+        var challengesTempList: MutableList<String> = mutableListOf()
+        for(item in challengesMutableList){
+            challengesTempList.add(item)
+            challengesTempList.add("")
+        }
         code.text = "Code: " + profile.code
         // participants
         val recyclerViewParticipants: RecyclerView = view.findViewById(R.id.participants)
         profileParticipantsRecyclerAdapter = ProfileParticipantsRecyclerAdapter(
-            participantsMutableList
+            participantsTempList
             )
         val layoutManagerParticipants = LinearLayoutManager(activity)
         recyclerViewParticipants.layoutManager = layoutManagerParticipants
@@ -86,7 +95,7 @@ class ProfileFragment : Fragment() {
         // challengess
         val recyclerViewChallenges: RecyclerView = view.findViewById(R.id.challenges)
         profileChallengesRecycleAdapter = ProfileChallengesRecycleAdapter(
-            challengesMutableList
+            challengesTempList
         )
         val layoutManagerChallenges = LinearLayoutManager(activity)
         recyclerViewChallenges.layoutManager = layoutManagerChallenges
@@ -111,19 +120,18 @@ class ProfileFragment : Fragment() {
                     challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
                     for (i in 0..(participantsMutableList.size - 1)) {
                         resultMutableList.add(
-                            participantsMutableList.get(i) + ", this is a challenge for you --> " + challengesMutableList.get(
-                                i
-                            )
-                        )
+                            participantsMutableList.get(i) + ", this is a challenge for you --> " + challengesMutableList.get(i))
+                        resultMutableList.add("")
                     }
                 } else {
                     challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
                     var j = 0
                     for (i in 0..(participantsMutableList.size - 1)) {
                         if (i % challengesMutableList.size  == 0) j = 0
-                        println("$i $j")
                         resultMutableList.add(
                             participantsMutableList.get(i) + ", this is a challenge for you --> " + challengesMutableList.get(j))
+                        resultMutableList.add("")
+
                         j++
                     }
                 }

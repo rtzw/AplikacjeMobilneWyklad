@@ -148,7 +148,7 @@ class ProfileFragment : Fragment() {
                         -1, profile.adminId, profile.name,
                         profile.code, profile.challenges, profile.players, temp
                     )
-                );
+                )
                 profileResultRecyclerAdapter = ProfileResultRecyclerAdapter(resultMutableList)
                 recyclerViewResult.adapter = profileResultRecyclerAdapter
                 profileResultRecyclerAdapter.notifyDataSetChanged()

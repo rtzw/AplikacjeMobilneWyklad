@@ -20,4 +20,6 @@
     <string name="select">select</string>
     <string name="create">CREATE</string>
     <string name="addNewProfile">Add new profile</string>
+    <string name="codeReview">Code:</string>
+    <string name="draw">Draw</string>
 </resources>

@@ -107,6 +107,12 @@ class NewProfile : Fragment() {
                             for (item in StaticVariables.addedParticipants) {
                                 players += "$item;"
                             }
+                            if(challenges.last().equals(";")){
+                                challenges.dropLast(1)
+                            }
+                            if(players.last().equals(";")){
+                                players.dropLast(1)
+                            }
                             userDatabase.addProfile(
                                 StaticVariables.loggedUser.id,
                                 m_Text,

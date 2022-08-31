@@ -59,7 +59,7 @@ class StartFragment : Fragment() {
         widthAnimation2.interpolator = DecelerateInterpolator()
 
 
-        var animation: AnimatorSet = AnimatorSet()
+        var animation = AnimatorSet()
 
         animation.play(heightAnimation).with(widthAnimation)
             .before(heightAnimation2).before(widthAnimation2)

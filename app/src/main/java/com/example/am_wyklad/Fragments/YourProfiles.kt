@@ -15,7 +15,7 @@ import com.example.am_wyklad.R
 import com.example.am_wyklad.StaticVariables
 
 
-class YourProfiles : Fragment() {
+class YourProfiles : Fragment(), YourProfilesRecyclerAdapter.ClickListner {
 
     lateinit var backButton: View
     lateinit var addNewProfile: View
@@ -37,7 +37,7 @@ class YourProfiles : Fragment() {
         addNewProfile = view.findViewById(R.id.addNewProfile)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.profiles)
-        yourProfilesRecyclerAdapter = YourProfilesRecyclerAdapter(userDatabase.getProfiles(StaticVariables.loggedUser.id))
+        yourProfilesRecyclerAdapter = YourProfilesRecyclerAdapter(userDatabase.getProfiles(StaticVariables.loggedUser.id),this)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = yourProfilesRecyclerAdapter
@@ -59,6 +59,14 @@ class YourProfiles : Fragment() {
         }
 
         return view
+    }
+
+    override fun onItemClick(string: String) {
+        val profileFragment = ProfileFragment();
+        val fragmentTransaction: FragmentTransaction =
+            fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.mainActivity, profileFragment)
+        fragmentTransaction.commit()
     }
 
 

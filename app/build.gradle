@@ -51,6 +51,7 @@ dependencies {
 //    implementation("androidx.room:room-runtime:2.4.2")
 
     implementation "androidx.room:room-runtime:2.4.2"
+    implementation 'androidx.games:games-activity:1.0.0-rc01'
     kapt "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
     implementation "androidx.room:room-paging:2.4.2"

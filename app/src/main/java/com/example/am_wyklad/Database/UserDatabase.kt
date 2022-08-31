@@ -227,4 +227,22 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         }
     }
 
+    fun getProfile(userId: Int, name: String): MutableList<Profile>{
+        val profile: MutableList<Profile> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from profile p where p.admin_id = '$userId' and p.name = '$name' ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                profile.add(Profile(query.getInt(0),query.getInt(1),query.getString(2),query.getString(3), query.getString(4),query.getString(5)))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return profile
+        }
+    }
+
 }

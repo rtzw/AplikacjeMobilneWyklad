@@ -15,20 +15,13 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        // binding.viewmodel = viewMode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED)
         isFullscreen = true
         setStartFragment()
-//        val blankFragment = BlankFragment();
-//        val fragmentTransaction = supportFragmentManager.beginTransaction()
-//        fragmentTransaction.add(R.id.startActivity, blankFragment)
-//        fragmentTransaction.commit()
-
-
 
         val thread = Thread(){
             run{
-                Thread.sleep(1000)
+                Thread.sleep(5500)
             }
             runOnUiThread(){
                 val intent = Intent(this, MainActivity::class.java)
@@ -38,8 +31,9 @@ class StartActivity : AppCompatActivity() {
         }
         thread.start()
     }
+
     private fun setStartFragment(){
-        val startFragment = StartFragment();
+        val startFragment = StartFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.startActivity, startFragment)
         fragmentTransaction.commit()

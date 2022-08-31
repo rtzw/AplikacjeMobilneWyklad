@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
+import com.example.am_wyklad.Database.User
 import com.example.am_wyklad.R
-
+import com.example.am_wyklad.StaticVariables
 
 
 class ProfilesMenu : Fragment() {
@@ -48,6 +49,7 @@ class ProfilesMenu : Fragment() {
         }
 
         logoutButton.setOnClickListener(){
+            StaticVariables.loggedUser = User(-1, "", "","")
             val chooseFragment = ChooseFragment();
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.mainActivity, chooseFragment)

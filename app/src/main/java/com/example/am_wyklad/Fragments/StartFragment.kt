@@ -49,12 +49,12 @@ class StartFragment : Fragment() {
         val heightAnimation: ObjectAnimator = ObjectAnimator.ofFloat(image, "y", MinY, MaxY).setDuration(3000)
         heightAnimation.interpolator = DecelerateInterpolator()
 
-        val heightAnimation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "y", MinY, MaxY).setDuration(3000)
-        heightAnimation2.interpolator = AccelerateInterpolator()
-
+//        val heightAnimation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "y", MinY, MaxY).setDuration(3000)
+//        heightAnimation2.interpolator = AccelerateInterpolator()
+//
         val widthAnimation: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", -width, MaxX / 2).setDuration(3000)
         widthAnimation.interpolator = AccelerateInterpolator()
-
+//
         val widthAnimation2: ObjectAnimator = ObjectAnimator.ofFloat(image, "x", MaxX / 2, MaxX + width).setDuration(3000)
         widthAnimation2.interpolator = DecelerateInterpolator()
 
@@ -62,7 +62,7 @@ class StartFragment : Fragment() {
         var animation = AnimatorSet()
 
         animation.play(heightAnimation).with(widthAnimation)
-            .before(heightAnimation2).before(widthAnimation2)
+            .before(widthAnimation2)
 
         animation.play(animation1).with(animation2)
 

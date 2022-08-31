@@ -9,12 +9,16 @@ class StaticVariables {
         lateinit var addedChallenges: MutableList<String>
         lateinit var loggedUser: User
         lateinit var profile: String
+        lateinit var code: String
+        lateinit var deleteProfile: String
     }
 
     init {
         addedParticipants = mutableListOf<String>()
         addedChallenges = mutableListOf<String>()
-        loggedUser.id = -1
+        loggedUser = User(-1,"","","")
         profile = ""
+        code = ""
+        deleteProfile = "null"
     }
 }

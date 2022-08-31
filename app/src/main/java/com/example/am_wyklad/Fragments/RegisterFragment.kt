@@ -40,13 +40,21 @@ class RegisterFragment : Fragment() {
 
         registerButton.setOnClickListener(){
             if(userDatabase.isRegistered(loginInput.text.toString())) {
-                Toast.makeText(requireContext(), "Podane konto już istnieje!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Account exists!", Toast.LENGTH_LONG).show()
             }else{
-                addNewUser()
-                val loginFragment = LoginFragment();
-                val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-                fragmentTransaction.replace(R.id.mainActivity, loginFragment)
-                fragmentTransaction.commit()
+                if(loginInput.text.toString().isNotEmpty() && loginInput.text.toString().isNotBlank()
+                    && passwordInput.text.toString().isNotEmpty() && passwordInput.text.toString().isNotBlank()
+                    && nameInput.text.toString().isNotEmpty() && nameInput.text.toString().isNotBlank()) {
+                    addNewUser()
+                    val loginFragment = LoginFragment();
+                    val fragmentTransaction: FragmentTransaction =
+                        fragmentManager!!.beginTransaction()
+                    fragmentTransaction.replace(R.id.mainActivity, loginFragment)
+                    fragmentTransaction.commit()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Incorrect data!", Toast.LENGTH_LONG).show()
+                }
             }
         }
 

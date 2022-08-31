@@ -2,34 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Fragments.ProfileFragment"
     android:orientation="vertical">
 
+
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/participation"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3">
+            android:layout_weight="0.25">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/challenges" />
         </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Challenges"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3">
+            android:layout_weight="0.25">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/participants" />
         </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Result"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3">
+            android:layout_weight="0.25">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -49,7 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/codeReview"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -58,19 +83,19 @@
             android:gravity="bottom">
 
             <Button
-                android:id="@+id/draw"
+                android:id="@+id/drawButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:width="180dp"
+                android:width="160dp"
                 android:text="@string/draw" />
 
             <Button
                 android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:width="180dp"
+                android:width="160dp"
                 android:text="@string/back" />
         </LinearLayout>
     </LinearLayout>

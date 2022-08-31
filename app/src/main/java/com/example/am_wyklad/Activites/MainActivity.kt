@@ -9,39 +9,13 @@ import com.example.am_wyklad.R
 import com.example.am_wyklad.StaticVariables
 
 class MainActivity : AppCompatActivity() {
-//    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         setChooseFragment()
         StaticVariables()
 
-
-//        val loginFragment = LoginFragment()
-//        val fragmentManager = supportFragmentManager
-//
-//        val fragmentTransaction = supportFragmentManager.beginTransaction()
-//        val blankFragment = BlankFragment()
-//        fragmentTransaction.add(R.id.mainActivity, loginFragment)
-//        fragmentTransaction.commit()
-
-//        binding.fragmentContainer.
-
-//        binding.loginButton.setOnClickListener(){
-//            val fragmentTransaction = supportFragmentManager.beginTransaction()
-//            val blankFragment = BlankFragment()
-//            fragmentTransaction.replace(R.id.fragmentContainer, blankFragment)
-//            fragmentTransaction.commit()
-//        }
-
-    }
-    private fun setLoginFragment(){
-        val loginFragment = LoginFragment();
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.mainActivity, loginFragment)
-        fragmentTransaction.commit()
     }
 
     private fun setChooseFragment(){

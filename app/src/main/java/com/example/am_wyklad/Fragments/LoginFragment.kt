@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener(){
             if(userDatabase.isRegistered(loginInput.text.toString(), passwordInput.text.toString())) {
                 StaticVariables.loggedUser = userDatabase.getUserByLogin(loginInput.text.toString())[0]
-                val profilesMenu = ProfilesMenu();
+                val profilesMenu = ProfilesMenu()
                     val fragmentTransaction: FragmentTransaction =
                         fragmentManager!!.beginTransaction()
                     fragmentTransaction.replace(R.id.mainActivity, profilesMenu)
@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         }
 
         backButton.setOnClickListener(){
-            val chooseFragment = ChooseFragment();
+            val chooseFragment = ChooseFragment()
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.mainActivity, chooseFragment)
             fragmentTransaction.commit()

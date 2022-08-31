@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.am_wyklad.DataModel
+import com.example.am_wyklad.Database.UserDatabase
 import com.example.am_wyklad.Fragments.ChooseFragment
 import com.example.am_wyklad.Fragments.ProfileFragment
 import com.example.am_wyklad.R
@@ -45,6 +46,8 @@ class YourProfilesRecyclerAdapter(private val dataSet: MutableList<String>, val 
         }
 
         holder.removeButton.setOnClickListener(){
+            StaticVariables.deleteProfile = dataSet[position]
+            clickListner.onItemClick(dataSet[position])
             removeItem(position)
         }
     }

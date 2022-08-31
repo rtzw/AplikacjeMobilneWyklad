@@ -20,7 +20,7 @@ class YourProfiles : Fragment(), YourProfilesRecyclerAdapter.ClickListner {
     lateinit var backButton: View
     lateinit var addNewProfile: View
     private lateinit var yourProfilesRecyclerAdapter: YourProfilesRecyclerAdapter
-
+    lateinit var userDatabase: UserDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,10 +31,10 @@ class YourProfiles : Fragment(), YourProfilesRecyclerAdapter.ClickListner {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_your_profiles, container, false)
-        val userDatabase: UserDatabase = UserDatabase(requireActivity())
 
         backButton = view.findViewById(R.id.backButton)
         addNewProfile = view.findViewById(R.id.addNewProfile)
+        userDatabase = UserDatabase(requireActivity())
 
         val recyclerView: RecyclerView = view.findViewById(R.id.profiles)
         yourProfilesRecyclerAdapter = YourProfilesRecyclerAdapter(userDatabase.getProfiles(StaticVariables.loggedUser.id),this)
@@ -62,11 +62,18 @@ class YourProfiles : Fragment(), YourProfilesRecyclerAdapter.ClickListner {
     }
 
     override fun onItemClick(string: String) {
-        val profileFragment = ProfileFragment();
-        val fragmentTransaction: FragmentTransaction =
-            fragmentManager!!.beginTransaction()
-        fragmentTransaction.replace(R.id.mainActivity, profileFragment)
-        fragmentTransaction.commit()
+        println("co ty?")
+        if(StaticVariables.deleteProfile.equals("null")) {
+            val profileFragment = ProfileFragment()
+            val fragmentTransaction: FragmentTransaction =
+                fragmentManager!!.beginTransaction()
+            fragmentTransaction.replace(R.id.mainActivity, profileFragment)
+            fragmentTransaction.commit()
+        }
+        else{
+            userDatabase.deleteProfile(StaticVariables.deleteProfile, StaticVariables.loggedUser.id)
+            StaticVariables.deleteProfile = "null"
+        }
     }
 
 

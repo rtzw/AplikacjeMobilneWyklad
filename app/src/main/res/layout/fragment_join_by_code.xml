@@ -41,7 +41,7 @@
                         android:textSize="20sp" />
 
                     <EditText
-                        android:id="@+id/loginInput"
+                        android:id="@+id/codeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -51,7 +51,7 @@
 
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/joinButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"

@@ -13,7 +13,7 @@ import com.example.am_wyklad.StaticVariables
 class ProfileChallengesRecycleAdapter(private val dataSet: MutableList<String>) : RecyclerView.Adapter<ProfileChallengesRecycleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.challenges_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.profile_layout, parent, false)
         return ViewHolder(v)
     }
 
@@ -21,18 +21,16 @@ class ProfileChallengesRecycleAdapter(private val dataSet: MutableList<String>) 
     override fun getItemCount() = dataSet.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var challenge: TextView
-        var select: CheckBox
+        var profileText: TextView
 
         init {
-            challenge = itemView.findViewById(R.id.challenge)
-            select = itemView.findViewById(R.id.checkbox)
+            profileText = itemView.findViewById(R.id.profileText)
         }
 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.challenge.text = dataSet[position]
+        holder.profileText.text = dataSet[position]
 
     }
 

@@ -22,4 +22,7 @@
     <string name="addNewProfile">Add new profile</string>
     <string name="codeReview">Code:</string>
     <string name="draw">Draw</string>
+    <string name="participation">Participation:</string>
+    <string name="Challenges">Challenges:</string>
+    <string name="Result">Result:</string>
 </resources>

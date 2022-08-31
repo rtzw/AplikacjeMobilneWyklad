@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.FragmentTransaction
+import com.example.am_wyklad.Database.UserDatabase
 import com.example.am_wyklad.R
 
 class ChooseFragment : Fragment() {
@@ -26,23 +27,29 @@ class ChooseFragment : Fragment() {
         loginButton = view.findViewById(R.id.loginButton)
         registerButton = view.findViewById(R.id.registerButton)
         joinByCodeButton = view.findViewById(R.id.joinByCodeButton)
+        val userDatabase: UserDatabase = UserDatabase(requireActivity())
+
+        if(userDatabase.getChallenges(-1).size == 0){
+            userDatabase.addChallenge(-1,"Skacz")
+            userDatabase.addChallenge(-1,"Tańcz")
+        }
 
         loginButton.setOnClickListener(){
-            val loginFragment = LoginFragment();
+            val loginFragment = LoginFragment()
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.mainActivity, loginFragment)
             fragmentTransaction.commit()
         }
 
         registerButton.setOnClickListener(){
-            val registerFragment = RegisterFragment();
+            val registerFragment = RegisterFragment()
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.mainActivity, registerFragment)
             fragmentTransaction.commit()
         }
 
         joinByCodeButton.setOnClickListener(){
-            val joinByCodeFragment = JoinByCodeFragment();
+            val joinByCodeFragment = JoinByCodeFragment()
             val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.mainActivity, joinByCodeFragment)
             fragmentTransaction.commit()

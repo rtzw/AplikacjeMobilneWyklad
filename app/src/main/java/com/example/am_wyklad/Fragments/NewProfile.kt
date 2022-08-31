@@ -95,7 +95,14 @@ class NewProfile : Fragment() {
                     if(userDatabase.getProfilesByName(StaticVariables.loggedUser.id, m_Text).size == 0) {
 
                         if (m_Text.isNotEmpty() || m_Text.isNotBlank()) {
-                            val pin = (100000..999999).random()
+                            var pin = (10000000..99999999).random()
+                            while(true){
+                                pin = (10000000..99999999).random()
+                                if(!userDatabase.getBooleanProfileByCode(pin.toString())){
+                                    break
+                                }
+                            }
+
                             var challenges: String = ""
                             var players: String = ""
                             for (item in StaticVariables.addedChallenges) {

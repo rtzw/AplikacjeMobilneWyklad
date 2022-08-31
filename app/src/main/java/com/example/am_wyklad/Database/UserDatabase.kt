@@ -11,7 +11,7 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     companion object{
         private const val DATABASE_NAME = "am.db"
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 7
 
         private const val TABLE_USER = "user"
         private const val COLUMN_ID = "id"
@@ -27,8 +27,9 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         private const val COLUMN_PROFILE_ADMIN_ID = "admin_id"
         private const val COLUMN_PROFILE_NAME = "name"
         private const val COLUMN_PROFILE_CODE = "code"
-        private const val COLUMN_PROFILE_CHALLENGES= "challenges"
-        private const val COLUMN_PROFILE_PLAYERS= "players"
+        private const val COLUMN_PROFILE_CHALLENGES = "challenges"
+        private const val COLUMN_PROFILE_PLAYERS = "players"
+        private const val COLUMN_PROFILE_DRAW = "draw"
 
 
     }
@@ -38,7 +39,9 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     private val CREATE_PROFILE_TABLE = ("CREATE TABLE  " + TABLE_PROFILE + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_PROFILE_ADMIN_ID + " INTEGER,"
-            + COLUMN_PROFILE_NAME + " TEXT, " + COLUMN_PROFILE_CODE + " TEXT, " +  COLUMN_PROFILE_CHALLENGES + " TEXT, " + COLUMN_PROFILE_PLAYERS + " TEXT" + ")")
+            + COLUMN_PROFILE_NAME + " TEXT, " + COLUMN_PROFILE_CODE + " TEXT, "
+            + COLUMN_PROFILE_CHALLENGES + " TEXT, " + COLUMN_PROFILE_PLAYERS + " TEXT, "
+            + COLUMN_PROFILE_DRAW + " TEXT " + ")")
 
     private val CREATE_CHALLENGE_TABLE = ("CREATE TABLE  " + TABLE_CHALLENGE + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CHALLENGE_USER_ID + " INTEGER,"
@@ -98,6 +101,12 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         values.put(COLUMN_USER_NAME, user.name)
         // Inserting Row
         db.insert(TABLE_USER, null, values)
+        db.close()
+    }
+
+    fun deleteProfile(name: String,adminId: Int) {
+        val db = this.writableDatabase
+        db.delete(TABLE_PROFILE, COLUMN_PROFILE_NAME + "= '$name' and " + COLUMN_PROFILE_ADMIN_ID + "= '$adminId' " ,null)
         db.close()
     }
 
@@ -169,6 +178,7 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         values.put(COLUMN_PROFILE_CODE, code)
         values.put(COLUMN_PROFILE_CHALLENGES, challenges)
         values.put(COLUMN_PROFILE_PLAYERS, players)
+        values.put(COLUMN_PROFILE_DRAW, "Waiting for draw!")
         // Inserting Row
         db.insert(TABLE_PROFILE, null, values)
         db.close()
@@ -236,7 +246,7 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
                 return ArrayList()
 
             do {
-                profile.add(Profile(query.getInt(0),query.getInt(1),query.getString(2),query.getString(3), query.getString(4),query.getString(5)))
+                profile.add(Profile(query.getInt(0),query.getInt(1),query.getString(2),query.getString(3), query.getString(4),query.getString(5), query.getString(6)))
             } while (query.moveToNext())
 
         } finally {
@@ -245,4 +255,28 @@ class UserDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         }
     }
 
+    fun getProfileByCode(code: String): MutableList<Profile>{
+        val profile: MutableList<Profile> = mutableListOf()
+        val db = this.readableDatabase
+        try {
+            val query = db.rawQuery ("select * from profile p where p.code = '$code' ", null);
+            if (!query.moveToFirst())
+                return ArrayList()
+
+            do {
+                profile.add(Profile(query.getInt(0),query.getInt(1),query.getString(2),query.getString(3), query.getString(4),query.getString(5),query.getString(6)))
+            } while (query.moveToNext())
+
+        } finally {
+            db.close()
+            return profile
+        }
+    }
+
+    fun getBooleanProfileByCode(code: String): Boolean {
+        val profile: MutableList<Profile> = mutableListOf()
+        val db = this.readableDatabase
+        val query = db.rawQuery("select * from profile p where p.code = '$code' ", null);
+        return query.moveToFirst()
+    }
 }

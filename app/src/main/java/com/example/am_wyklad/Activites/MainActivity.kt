@@ -1,12 +1,17 @@
 package com.example.am_wyklad.Activites
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
+import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import android.telephony.SmsManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.am_wyklad.Fragments.ChooseFragment
-import com.example.am_wyklad.Fragments.LoginFragment
 import com.example.am_wyklad.R
 import com.example.am_wyklad.StaticVariables
+
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,11 +1,18 @@
 package com.example.am_wyklad.Fragments
 
+import android.app.AlertDialog
+import android.app.PendingIntent
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.telephony.SmsManager
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
@@ -22,6 +29,7 @@ class ProfileFragment : Fragment() {
 
     lateinit var backButton: View
     lateinit var drawButton: View
+    lateinit var sms: View
     lateinit var code: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +49,7 @@ class ProfileFragment : Fragment() {
 
         backButton = view.findViewById(R.id.backButton)
         drawButton = view.findViewById(R.id.drawButton)
+        sms = view.findViewById(R.id.sms)
         code = view.findViewById(R.id.code)
         val profile: Profile
         val userDatabase: UserDatabase = UserDatabase(requireActivity())
@@ -95,14 +104,14 @@ class ProfileFragment : Fragment() {
 
         drawButton.setOnClickListener(){
             if(StaticVariables.loggedUser.id == -1)
-                Toast.makeText(requireContext(), "You cannot draw, ask the organizer!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "You cannot draw, ask the organizer!", Toast.LENGTH_SHORT).show()
             else {
                 resultMutableList = mutableListOf()
                 if (participantsMutableList.size <= challengesMutableList.size) {
                     challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
                     for (i in 0..(participantsMutableList.size - 1)) {
                         resultMutableList.add(
-                            challengesMutableList.get(i) + " for " + participantsMutableList.get(
+                            participantsMutableList.get(i) + ", this is a challenge for you --> " + challengesMutableList.get(
                                 i
                             )
                         )
@@ -111,12 +120,10 @@ class ProfileFragment : Fragment() {
                     challengesMutableList.shuffle(Random(System.currentTimeMillis() / 1000L))
                     var j = 0
                     for (i in 0..(participantsMutableList.size - 1)) {
-                        if ((challengesMutableList.size + 1) % (i + 1) == 0) j = 0
+                        if (i % challengesMutableList.size  == 0) j = 0
+                        println("$i $j")
                         resultMutableList.add(
-                            challengesMutableList.get(j) + " --> " + participantsMutableList.get(
-                                i
-                            )
-                        )
+                            participantsMutableList.get(i) + ", this is a challenge for you --> " + challengesMutableList.get(j))
                         j++
                     }
                 }
@@ -140,6 +147,49 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        sms.setOnClickListener(){
+            if(StaticVariables.loggedUser.id == -1)
+                Toast.makeText(requireContext(), "You cannot send SMS, only the organizer can!", Toast.LENGTH_SHORT).show()
+            else {
+                try {
+                    val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(activity)
+                    builder.setTitle("The application will send an SMS with the code to the profile.")
+                    val input = EditText(activity)
+                    input.setHint("Input phone number")
+                    input.inputType = InputType.TYPE_CLASS_TEXT
+                    builder.setView(input)
+
+                    builder.setPositiveButton(
+                        "SEND",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            var m_Text = input.text.toString()
+
+                            sendSMS(
+                                m_Text, "You have been invited" +
+                                        " to ${StaticVariables.loggedUser.name}'s profile in the" +
+                                        " \"Bachelor party\" application. Here is your code: ${profile.code}"
+                            )
+                            Toast.makeText(requireContext(), "Message Sent", Toast.LENGTH_SHORT)
+                                .show()
+
+                        })
+                    builder.setNegativeButton(
+                        "Cancel",
+                        DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+                    builder.show()
+
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please enter correct data!" + e.message.toString(),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+        }
+
         backButton.setOnClickListener(){
             if(StaticVariables.loggedUser.id == -1){
                 val chooseFragment = ChooseFragment()
@@ -156,6 +206,11 @@ class ProfileFragment : Fragment() {
         }
         return view
     }
-
+    private fun sendSMS(phoneNumber: String, message: String) {
+        val sentPI: PendingIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"),
+            PendingIntent.FLAG_IMMUTABLE
+        )
+        SmsManager.getDefault().sendTextMessage(phoneNumber, null, message, sentPI, null)
+    }
 
 }

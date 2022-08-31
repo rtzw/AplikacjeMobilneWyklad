@@ -40,7 +40,7 @@ class RegisterFragment : Fragment() {
 
         registerButton.setOnClickListener(){
             if(userDatabase.isRegistered(loginInput.text.toString())) {
-                Toast.makeText(requireContext(), "Account exists!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Account exists!", Toast.LENGTH_SHORT).show()
             }else{
                 if(loginInput.text.toString().isNotEmpty() && loginInput.text.toString().isNotBlank()
                     && passwordInput.text.toString().isNotEmpty() && passwordInput.text.toString().isNotBlank()
@@ -53,7 +53,7 @@ class RegisterFragment : Fragment() {
                     fragmentTransaction.commit()
                 }
                 else{
-                    Toast.makeText(requireContext(), "Incorrect data!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Incorrect data!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -69,7 +69,7 @@ class RegisterFragment : Fragment() {
     private fun addNewUser(): Boolean {
         val userDatabase: UserDatabase = UserDatabase(requireActivity())
         userDatabase.addUser(User(0, loginInput.text.toString(), passwordInput.text.toString(),nameInput.text.toString()))
-        Toast.makeText(requireContext(), "Konto zostało utworzone!", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Konto zostało utworzone!", Toast.LENGTH_SHORT).show()
         return true
     }
 

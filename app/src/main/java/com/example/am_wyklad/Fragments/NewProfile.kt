@@ -94,10 +94,10 @@ class NewProfile : Fragment() {
                     var m_Text = input.text.toString()
                     if(userDatabase.getProfilesByName(StaticVariables.loggedUser.id, m_Text).size == 0) {
 
-                        if (m_Text.isNotEmpty() || m_Text.isNotBlank()) {
-                            var pin = (10000000..99999999).random()
+                        if (m_Text.isNotEmpty() || m_Text.isNotBlank()) { 28832474
+                            var pin = (10000000..99999999).random(Random(System.currentTimeMillis() / 1000L))
                             while(true){
-                                pin = (10000000..99999999).random()
+                                pin = (10000000..99999999).random(Random(System.currentTimeMillis() / 1000L))
                                 if(!userDatabase.getBooleanProfileByCode(pin.toString())){
                                     break
                                 }

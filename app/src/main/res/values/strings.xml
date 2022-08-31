@@ -25,4 +25,5 @@
     <string name="participation">Participation:</string>
     <string name="Challenges">Challenges:</string>
     <string name="Result">Result:</string>
+    <string name="sendSMS">SEND SMS</string>
 </resources>
